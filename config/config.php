@@ -17,19 +17,19 @@ class Config
     {
         return [
             // 管理者用マスターキー（必ず変更してください）
-            'master' => 'CHANGE_THIS_MASTER_KEY',
+            'master' => $this->envString('PHPUPLOADER_MASTER_KEY', 'CHANGE_THIS_MASTER_KEY'),
 
             // 暗号化・ハッシュ化用キー（必ず変更してください）
-            'key' => 'CHANGE_THIS_ENCRYPTION_KEY',
+            'key' => $this->envString('PHPUPLOADER_ENCRYPTION_KEY', 'CHANGE_THIS_ENCRYPTION_KEY'),
 
             // セッション用ソルト（必ず変更してください）
-            'sessionSalt' => 'CHANGE_THIS_sessionSalt',
+            'sessionSalt' => $this->envString('PHPUPLOADER_SESSION_SALT', 'CHANGE_THIS_sessionSalt'),
 
             // アプリケーション設定
-            'title' => 'PHP Uploader',
+            'title' => $this->envString('PHPUPLOADER_TITLE', 'PHP Uploader'),
+            'maxFileSize' => $this->envInt('PHPUPLOADER_MAX_FILE_SIZE_MB', 100), // MB
             'saveMaxFiles' => 500,
             'maxComment' => 80,
-            'maxFileSize' => 100, // MB
             'extension' => [
                 'zip',
                 'rar',
@@ -145,5 +145,30 @@ class Config
     {
         // config.phpの位置からアプリケーションルートを算出
         return dirname(__DIR__);
+    }
+
+    private function envString(string $name, string $default): string
+    {
+        $value = getenv($name);
+        if ($value === false || $value === '') {
+            return $default;
+        }
+
+        return $value;
+    }
+
+    private function envInt(string $name, int $default): int
+    {
+        $value = getenv($name);
+        if ($value === false || $value === '') {
+            return $default;
+        }
+
+        $validated = filter_var($value, FILTER_VALIDATE_INT);
+        if ($validated === false) {
+            return $default;
+        }
+
+        return $validated;
     }
 }

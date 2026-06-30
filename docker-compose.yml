@@ -2,6 +2,8 @@ services:
   app:
     image: ghcr.io/soralis0912/phpuploader-docker:latest
     pull_policy: always
+    env_file:
+      - .env
     ports:
       - "127.0.0.1:19762:80"
     volumes:
