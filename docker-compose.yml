@@ -1,0 +1,11 @@
+services:
+  app:
+    image: ghcr.io/soralis0912/phpuploader-docker:latest
+    pull_policy: always
+    ports:
+      - "127.0.0.1:19762:80"
+    volumes:
+      - ./config:/var/www/html/config
+      - ./data:/var/www/html/data
+      - ./db:/var/www/html/db
+      - ./logs:/var/www/html/logs
