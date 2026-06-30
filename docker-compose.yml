@@ -1,6 +1,6 @@
 services:
   app:
-    image: ghcr.io/soralis0912/phpuploader-docker:latest
+    image: ghcr.io/soralis0912/phpuploader:latest
     pull_policy: always
     env_file:
       - .env
