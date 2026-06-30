@@ -29,7 +29,7 @@ class Config
             'title' => 'PHP Uploader',
             'saveMaxFiles' => 500,
             'maxComment' => 80,
-            'maxFileSize' => 2, // MB
+            'maxFileSize' => 100, // MB
             'extension' => [
                 'zip',
                 'rar',
